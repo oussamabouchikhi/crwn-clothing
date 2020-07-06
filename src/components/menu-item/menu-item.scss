@@ -1,18 +1,4 @@
-.homepage {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px 80px;
-  }
-  
-  .directory-menu {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-  
-  .menu-item {
+.menu-item {
     min-width: 30%;
     height: 240px;
     flex: 1 1 auto;
@@ -21,6 +7,8 @@
     justify-content: center;
     border: 1px solid black;
     margin: 0 7.5px 15px;
+    background-position: center;
+    background-size: cover;
   
     &:first-child {
       margin-right: 7.5px;
@@ -44,6 +32,7 @@
         margin-bottom: 6px;
         font-size: 22px;
         color: #4a4a4a;
+        text-transform: uppercase;
       }
   
       .subtitle {
