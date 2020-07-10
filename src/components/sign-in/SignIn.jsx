@@ -1,5 +1,6 @@
 import React from 'react';
 import FormInput from '../form-input/FormInput';
+import CustumButton from '../custum-button/CustumButton';
 import  './sign-in.scss';
 
 class SignIn extends React.Component {
@@ -43,7 +44,9 @@ class SignIn extends React.Component {
                         label='Password'
                         required
                         />
-                    <input type="submit" value="Sign in"/>
+                    <CustumButton type="submit">
+                        Sign in
+                    </CustumButton>
                 </form>
             </div>
         );
