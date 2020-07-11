@@ -11,6 +11,38 @@ const firebaseConfig = {
     messagingSenderId: "647451076837",
     appId: "1:647451076837:web:3ab3e4c82a7881d7d4cc0c"
 };
+
+// Store user in database
+export const createUserProfileDocument = async (userAuth, additionnalData) => {
+    // If There is no user object data
+    if(!userAuth) return;
+
+    // Fetch this user in DB
+    const userRef = firestore.doc(`users/${userAuth.uid}`);
+    const snapshot = await userRef.get();
+
+    // If user doesn't exist in DB
+    if(!snapshot.exists) {
+        // get name & email from Google account
+        const {displayName, email} = userAuth;
+        const createdAt = new Date();
+        
+        try {
+            // Create new user with these data
+            await userRef.set({
+                displayName,
+                email,
+                createdAt,
+                ...additionnalData
+            })
+        } catch (error) {
+            console.log('error creaing user', error.message);
+        }
+    }
+
+    return userRef;
+}
+
 // Initiallize Firebase
 firebase.initializeApp(firebaseConfig);
 

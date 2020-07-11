@@ -6,7 +6,7 @@ import Header from './components/header/Header';
 import HomePage from './pages/homepage/Homepage';
 import ShopPage from './pages/shop/Shop';
 import Register from './pages/account-registration/Register';
-import {auth} from './firebase/firebase.utils';
+import {auth, createUserProfileDocument} from './firebase/firebase.utils';
 
 class App extends React.Component {
   constructor() {
@@ -20,8 +20,7 @@ class App extends React.Component {
   
   componentDidMount() {
     auth.onAuthStateChanged(user => {
-      this.setState({currentUser: user});
-      // console.log(user);
+      createUserProfileDocument(user);
     });
   }
 
