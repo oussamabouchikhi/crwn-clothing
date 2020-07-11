@@ -9,13 +9,15 @@ import Register from './pages/account-registration/Register';
 import {auth} from './firebase/firebase.utils';
 
 class App extends React.Component {
-  construct() {
+  constructor() {
     super();
     this.state = {
       currentUser: null
     }
   }
-  unsubscribeFromAuth = null
+
+  unsubscribeFromAuth = null;
+  
   componentDidMount() {
     auth.onAuthStateChanged(user => {
       this.setState({currentUser: user});
@@ -31,7 +33,7 @@ class App extends React.Component {
   render () {
     return (
       <div className="App">
-        <Header />
+        <Header currentUser={this.state.currentUser} />
         <Switch>
           <Route exact path='/' component={HomePage}></Route>
           <Route path='/shop' component={ShopPage}></Route>
