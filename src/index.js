@@ -10,7 +10,7 @@ import './index.css';
 import App from './App';
 
 ReactDOM.render(
-  <Provider>
+  <Provider store={store}>
     <BrowserRouter>
       <App />
     </BrowserRouter>
