@@ -60,7 +60,7 @@ export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => 
 }
 
 export const convertCollectionsSnapshotToMap = collections => {
-    const trabsformedCollection = collections.docs.map(doc => {
+    const transformedCollection = collections.docs.map(doc => {
         const {title, items} = doc.data();
 
         return {
@@ -71,7 +71,10 @@ export const convertCollectionsSnapshotToMap = collections => {
         }
     });
 
-    console.log(trabsformedCollection);
+    return transformedCollection.reduce((accumulator, collection) => {
+        accumulator[collection.title.toLowerCase()] = collection;
+        return accumulator;
+    }, {});
 }
 
 // Use Firebase authentication & firestore
