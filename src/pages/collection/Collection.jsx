@@ -8,7 +8,8 @@ import './collection.scss';
 import { connect } from 'react-redux';
 
 const Collection = ({collection}) => {
-    const {title, items} = collection
+    const {title, items} = collection;
+    
     return (
     <div className="collection-page">
         <h2 className='title'>{title}</h2>
