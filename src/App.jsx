@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Switch, Route, Redirect} from 'react-router-dom';
 
 import {connect} from 'react-redux';
@@ -18,14 +18,13 @@ import CheckoutPage from './pages/checkout/Checkout';
 import {auth, createUserProfileDocument} from './firebase/firebase.utils';
 import {setCurrentUser} from './redux/user/user-actions';
 
-class App extends React.Component {
+const App = ({ currentUser, setCurrentUser }) => {
 
-  unsubscribeFromAuth = null;
+  // let unsubscribeFromAuth = null;
   
-  componentDidMount() {
-    const {setCurrentUser} = this.props;
+  useEffect(() => {
 
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+    const unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
         userRef.onSnapshot(snapshot => {
@@ -39,29 +38,28 @@ class App extends React.Component {
       }
       setCurrentUser(userAuth);
     });
-  }
 
-  componentWillUnmount() {
-    // Close subscription
-    this.unsubscribeFromAuth();
-  }
+    return () => {
+      // Close subscription from auth observable
+      unsubscribeFromAuth();
+    }
+  }, []);
+  
+  return (
+    <div className="App">
+      <Header />
+      <Switch>
+        <Route exact path='/' component={HomePage} />
+        <Route path='/shop' component={ShopPage} />
+        <Route exact path='/checkout' component={CheckoutPage} />
+        <Route 
+          exact path='/register' 
+          render={() => currentUser ? (<Redirect to='/' />) : (<Register />)}
+        />
+      </Switch>
+    </div>
+  );
 
-  render () {
-    return (
-      <div className="App">
-        <Header />
-        <Switch>
-          <Route exact path='/' component={HomePage} />
-          <Route path='/shop' component={ShopPage} />
-          <Route exact path='/checkout' component={CheckoutPage} />
-          <Route 
-            exact path='/register' 
-            render={() => this.props.currentUser ? (<Redirect to='/' />) : (<Register />)}
-          />
-        </Switch>
-      </div>
-    );
-  }
 }
 
 const mapStateToProps = createStructuredSelector({
