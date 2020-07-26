@@ -6,8 +6,6 @@ import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
 import {selectCurrentUser} from './redux/user/user-selectors';
 
-import './App.css';
-
 import Header from './components/header/Header';
 
 import HomePage from './pages/homepage/Homepage';
@@ -17,6 +15,8 @@ import CheckoutPage from './pages/checkout/Checkout';
 
 import {auth, createUserProfileDocument} from './firebase/firebase.utils';
 import {setCurrentUser} from './redux/user/user-actions';
+
+import GlobalStyles from './global-styles';
 
 const App = ({ currentUser, setCurrentUser }) => {
 
@@ -47,6 +47,7 @@ const App = ({ currentUser, setCurrentUser }) => {
   
   return (
     <div className="App">
+      <GlobalStyles />
       <Header />
       <Switch>
         <Route exact path='/' component={HomePage} />
