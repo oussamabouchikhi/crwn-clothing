@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, lazy, Suspense} from 'react';
 import {Switch, Route, Redirect} from 'react-router-dom';
 
 import {connect} from 'react-redux';
@@ -8,15 +8,16 @@ import {selectCurrentUser} from './redux/user/user-selectors';
 
 import Header from './components/header/Header';
 
-import HomePage from './pages/homepage/Homepage';
-import ShopPage from './pages/shop/Shop';
-import Register from './pages/account-registration/Register';
-import CheckoutPage from './pages/checkout/Checkout';
-
 import {auth, createUserProfileDocument} from './firebase/firebase.utils';
 import {setCurrentUser} from './redux/user/user-actions';
 
 import GlobalStyles from './global-styles';
+import Spinner from './components/spinner/Spinner';
+
+const HomePage         = lazy(() => import('./pages/homepage/Homepage'));
+const ShopPage         = lazy(() => import('./pages/shop/Shop'));
+const RegistrationPage = lazy(() => import('./pages/account-registration/Register'));
+const CheckoutPage     = lazy(() => import('./pages/checkout/Checkout'));
 
 const App = ({ currentUser, setCurrentUser }) => {
 
@@ -50,13 +51,15 @@ const App = ({ currentUser, setCurrentUser }) => {
       <GlobalStyles />
       <Header />
       <Switch>
-        <Route exact path='/' component={HomePage} />
-        <Route path='/shop' component={ShopPage} />
-        <Route exact path='/checkout' component={CheckoutPage} />
-        <Route 
-          exact path='/register' 
-          render={() => currentUser ? (<Redirect to='/' />) : (<Register />)}
-        />
+        <Suspense fallback={<Spinner />}>
+          <Route exact path='/' component={HomePage} />
+          <Route path='/shop' component={ShopPage} />
+          <Route exact path='/checkout' component={CheckoutPage} />
+          <Route 
+            exact path='/register' 
+            render={() => currentUser ? (<Redirect to='/' />) : (<RegistrationPage />)}
+          />
+        </Suspense>
       </Switch>
     </div>
   );

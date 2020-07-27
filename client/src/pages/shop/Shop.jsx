@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, lazy, Suspense} from 'react';
 
 import {connect} from 'react-redux';
 
@@ -6,8 +6,8 @@ import {fetchCollectionsStartAsync} from '../../redux/shop/shop-actions';
 
 import {Route} from 'react-router-dom';
 
-import CollectionsOverviewContainer from '../../components/collections-overview/CollectionsOverviewContainer';
-import CollectionPageContainer from '../collection/CollectionContainer';
+const CollectionsOverviewContainer = lazy(() => import('../../components/collections-overview/CollectionsOverviewContainer'));
+const CollectionPageContainer = lazy(() => import('../collection/CollectionContainer'));
 
 const Shop = ({fetchCollectionsStartAsync, match}) => {
 
