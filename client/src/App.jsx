@@ -13,6 +13,7 @@ import {setCurrentUser} from './redux/user/user-actions';
 
 import GlobalStyles from './global-styles';
 import Spinner from './components/spinner/Spinner';
+import ErrorBoundary from './components/error-boundary/ErrorBoundary';
 
 const HomePage         = lazy(() => import('./pages/homepage/Homepage'));
 const ShopPage         = lazy(() => import('./pages/shop/Shop'));
@@ -51,15 +52,17 @@ const App = ({ currentUser, setCurrentUser }) => {
       <GlobalStyles />
       <Header />
       <Switch>
-        <Suspense fallback={<Spinner />}>
-          <Route exact path='/' component={HomePage} />
-          <Route path='/shop' component={ShopPage} />
-          <Route exact path='/checkout' component={CheckoutPage} />
-          <Route 
-            exact path='/register' 
-            render={() => currentUser ? (<Redirect to='/' />) : (<RegistrationPage />)}
-          />
-        </Suspense>
+        <ErrorBoundary>
+          <Suspense fallback={<Spinner />}>
+            <Route exact path='/' component={HomePage} />
+            <Route path='/shop' component={ShopPage} />
+            <Route exact path='/checkout' component={CheckoutPage} />
+            <Route 
+              exact path='/register' 
+              render={() => currentUser ? (<Redirect to='/' />) : (<RegistrationPage />)}
+            />
+          </Suspense>
+        </ErrorBoundary>
       </Switch>
     </div>
   );
