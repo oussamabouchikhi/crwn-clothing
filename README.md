@@ -31,9 +31,9 @@ Clothing shop made using React & firebase with Stripe payments implemented.
 
 ```bash
 #1. clone this project
-~ 
+~ https://github.com/oussamabouchikhi/crwn-clothing.git
 #2. cd into it
-~ cd reactecommerce
+~ cd crwn-clothing
 #3. install serevr dependencies
 ~ npm i
 #3. install client dependencies
