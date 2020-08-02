@@ -24,6 +24,7 @@ Clothing shop made using React & firebase with Stripe payments implemented.
     - **reselect**: reusing redux selectors in a performant way <br />
     - **redux-persist**: storing data in local storage <br />
     - **compression**: for gzipping our files on heroku <br />
+    - **concurrently**: for running multiple scripts concurrently <br />
 
 ## Usage 📋
 <details open>
@@ -31,7 +32,7 @@ Clothing shop made using React & firebase with Stripe payments implemented.
 
 ```bash
 #1. clone this project
-~ https://github.com/oussamabouchikhi/crwn-clothing.git
+~ git clone https://github.com/oussamabouchikhi/crwn-clothing.git
 #2. cd into it
 ~ cd crwn-clothing
 #3. install serevr dependencies
